@@ -1,0 +1,108 @@
+<html>
+<head>
+    <title>Halaman Input Pinjaman</title>
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</head>
+
+<body>
+<script>
+    var totalG;
+    var waktuG;
+    function Menghitung()
+    {
+        var i=0;
+        var jumlahpin = prompt("Masukkan Jumlah Pinjaman : ");
+        var waktupin = prompt("Masukkan Waktu Pinjaman : ");
+        var persenbunga;
+        waktuG = waktupin;
+        if (parseInt(waktupin) >=1 && parseInt(waktupin)<=6)
+        {
+            persenbunga=2;
+        }
+        else if(parseInt(waktupin) >=7 && parseInt(waktupin)<=12)
+        {
+            persenbunga=1.5;
+        }
+        else 
+        {
+            persenbunga=1;
+        }
+
+        var jumlahbunga = (parseInt(jumlahpin)*parseInt(persenbunga)*parseInt(waktupin))/100;
+        var total = parseInt(jumlahpin)+parseInt(jumlahbunga);
+        totalG=total;
+
+
+        document.getElementById("jumlah").innerHTML=jumlahpin;
+        document.getElementById("waktu").innerHTML=waktupin;
+        document.getElementById("bunga").innerHTML=persenbunga;
+        document.getElementById("jumlahbunga").innerHTML=jumlahbunga;
+        document.getElementById("total").innerHTML=total;
+    }
+
+function list()
+{
+    var totalperbulan = totalG/waktuG;
+    document.getElementById("perbulan").innerHTML=totalperbulan;
+    document.getElementById("waktuG").innerHTML=waktuG;
+    document.getElementById("perbulan2").innerHTML=totalperbulan;
+    document.getElementById("waktuG2").innerHTML=waktuG;
+    alert("Berhasil Menghitung Detail Cicilan");
+}
+
+$(function(){
+  $( "#btn1" ).bind( "tap", tapHandler );
+ 
+  function tapHandler( event ){
+    $( event.target ).addClass( "btn-warning" );
+  }
+});
+
+
+$(function(){
+  $( "#hold" ).bind( "taphold", tapholdHandler );
+ 
+  function tapholdHandler( event ){
+    $( event.target ).addClass( "btn-success" );
+  }
+});
+
+$(function(){
+  $( "#swipe" ).on( "swipe", swipeHandler );
+  function swipeHandler( event ){
+    $( event.target ).addClass( "ui-btn ui-btn-b" );
+  }
+});
+
+</script>
+
+<button onclick="Menghitung()">Hitung</button>
+<div data-role="collapsible">
+    <h3>Hasil Hitungannya Ada Disini!</h3>
+    <ul data-role="listview">
+        <li><div><h3>Pinjaman : <span id="jumlah">0</span></h3></div></li>
+        <li><div><h3>Waktu Pinjam : <span id ="waktu">0</span> </h3> </div></li>
+        <li><div><h3>Persentase Bunga : <span id="bunga">0</span> </h3> </div></li>
+        <li><div><h3>Jumlah Bunga : <span id="jumlahbunga">0</span> </h3> </div></li>
+        <li><div><h3>Total : <span id="total">0</span> </h3> </div></li>
+      </ul>
+   
+</div>
+<center>
+<button onclick="list()" id ="btn1">Detail Cicilan</button>
+<a href="#panel">Liat Detilnya</a><br>
+<div data-role="panel" id="panel" data-display="reveal" data-position="left"><h4>Cicilan Per Bulan adalah : <span id="perbulan">0</span>, sebanyak : <span id="waktuG">-</span> Kali</h4></div>
+<a href="#popupBasic" data-rel="popup">Lihat Detail</a>
+<div data-role="popup" id="popupBasic">
+    <h4>Cicilan Per Bulan adalah : <span id="perbulan2">0</span>, sebanyak : <span id="waktuG2">-</span> Kali</h4>
+</div>
+<button id="hold">Tap and Hold Me</button>
+<button id="swipe">Swipe Meeee!</button>
+</center>
+</body>
+
+</html>
